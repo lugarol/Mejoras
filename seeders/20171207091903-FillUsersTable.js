@@ -19,18 +19,6 @@ module.exports = {
                 password: crypt.encryptPassword('5678', 'bbbb'),
                 salt: 'bbbb',
                 createdAt: new Date(), updatedAt: new Date()
-            },
-            {
-                username: 'luis',
-                password: crypt.encryptPassword('luis', 'cccc'),
-                salt: 'cccc',
-                createdAt: new Date(), updatedAt: new Date()
-            },
-            {
-                username: 'javi',
-                password: crypt.encryptPassword('javi', 'dddd'),
-                salt: 'dddd',
-                createdAt: new Date(), updatedAt: new Date()
             }
         ]);
     },
