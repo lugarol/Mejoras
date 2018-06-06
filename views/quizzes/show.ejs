@@ -25,8 +25,12 @@
 
 </div>
 
+<a href="/quizzes/<%= quiz.id %>/edit"><button>edit</button></a>
+<a href="/quizzes/<%= quiz.id %>?_method=DELETE"
+   onClick="return confirm('Delete: <%= quiz.question %>');">
+    <button>delete</button>
+</a>
 
-<a href="/goback"><button>Go back</button></a>
 
 
 <h1>

@@ -18,8 +18,8 @@ const maxIdleTime = 5*60*1000;
 //
 exports.deleteExpiredUserSession = (req, res, next) => {
 
-    if (req.session.user ) { // There exista user's session
-        if ( req.session.user.expires < Date.now() ) { // Expired
+    if (req.session.user ) { // There exists user's session
+        if (req.session.user.expires < Date.now()) { // Expired
             delete req.session.user; // Logout
             req.flash('info', 'User session has expired.');
         } else { // Not expired. Reset value.
@@ -33,8 +33,8 @@ exports.deleteExpiredUserSession = (req, res, next) => {
 
 // Middleware: Login required.
 //
-// If the user is logged in previously then there will exists
-// the req.session.user object, so I continue with the others
+// If the user has previously logged in then the req.session.user
+// object will exist, so I continue with the other
 // middlewares or routes.
 // If req.session.user does not exist, then nobody is logged,
 // so I redirect to the login screen.
@@ -52,7 +52,7 @@ exports.loginRequired = (req, res, next) => {
 
 
 
-// MW that allows to pass only if the logged useer in is admin.
+// MW that allows to pass only if the logged in user is admin.
 exports.adminRequired = (req, res, next) => {
 
     const isAdmin = !!req.session.user.isAdmin;
@@ -60,7 +60,7 @@ exports.adminRequired = (req, res, next) => {
     if (isAdmin) {
         next();
     } else {
-        console.log('Prohibited route: the logged in user is not an administrator.');
+        console.log('Forbidden route: the logged in user is not an administrator.');
         res.send(403);    
     }
 };

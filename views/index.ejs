@@ -1,3 +1,9 @@
 <h1>Welcome to Quiz</h1>
 
 <p>The web site where you can create your own games!</p>
+
+<% if (numQuiz === 1) { %>
+    <p>There's just one quiz :(. Add some more!</p>
+<% } else { %>
+    <p>Right now, there are <%= numQuiz %> quizzes created. Add some more!</p>
+<% } %>

@@ -6,9 +6,12 @@
     Successful answers = <span id="score"><%= score %></span>
 </div>
 
+<p><%=  %></p>
+
 <form method="get" action="/quizzes/randomcheck/<%= quiz.id %>">
     <p>
         Question: <b><%= quiz.question %></b>
+        <small> (by <%= quiz.author ? quiz.author.username : "Anonymous" %>) </small>
     </p>
 
     <div class="wideRow">

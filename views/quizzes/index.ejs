@@ -22,6 +22,12 @@
     <%= title || "Questions" %>:
 </h1>
 
+<% if (session.user) { %>
+    <div>
+        <a href="/quizzes/new"><button type="button">Create New Question</button></a>
+    </div>
+<% } %>
+
 <table id="quizzesIndex">
     <% for (var i in quizzes) { %>
     <% var quiz = quizzes[i]; %>
@@ -60,5 +66,7 @@
 </table>
 
 <% if (session.user) { %>
+<div>
     <a href="/quizzes/new"><button type="button">Create New Question</button></a>
+</div>
 <% } %>

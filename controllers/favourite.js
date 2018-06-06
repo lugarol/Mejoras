@@ -1,4 +1,3 @@
-
 // PUT /users/:userId/favourites/:quizId
 exports.add = (req, res, next) => {
 

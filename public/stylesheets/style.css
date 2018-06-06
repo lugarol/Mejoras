@@ -72,6 +72,8 @@ a {
 #quizzesIndex {
     width: 100%;
     border-collapse: collapse;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 #quizzesIndex tr {

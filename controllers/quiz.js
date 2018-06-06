@@ -263,6 +263,7 @@ exports.new = (req, res, next) => {
     res.render('quizzes/new', {quiz});
 };
 
+
 // POST /quizzes/create
 exports.create = (req, res, next) => {
 
@@ -313,8 +314,8 @@ exports.create = (req, res, next) => {
         .catch(error => {
             req.flash('error', 'Failed to save attachment: ' + error.message);
         })
-        .then(() => {
-            fs.unlink(req.file.path); // delete the file uploaded at./uploads
+        .then(function () {
+            fs.unlink(req.file.path, (error) => {});        // delete the file uploaded at./uploads
             res.redirect('/quizzes/' + quiz.id);
         });
     })
@@ -402,7 +403,7 @@ exports.update = (req, res, next) => {
                 req.flash('error', 'Failed saving the new attachment: ' + error.message);
             })
             .then(function () {
-                fs.unlink(req.file.path); // delete the file uploaded at./uploads
+                fs.unlink(req.file.path, (error) => {});    // delete the file uploaded at./uploads
             });
         }
     })
@@ -567,4 +568,23 @@ exports.randomCheck = (req, res, next) => {
         delete req.session.resolved;
         res.render('quizzes/random_result', {result, score, answer});
     }
+};
+
+
+exports.count = (req, res, next) => {
+    Sequelize.Promise.resolve()
+    .then(() => {
+        return models.quiz.count()
+        .then(numQuiz => {
+            res.render('index', {numQuiz});
+        })
+        .catch(error => {
+            req.flash('Unexpected error');
+            next(error);
+        });
+    })
+    .catch(error => {
+        req.flash('Unexpected error');
+        next(error);
+    });
 };
