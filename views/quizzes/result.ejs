@@ -4,13 +4,14 @@
 </h1>
 
 <p>
-    The answer <strong> <%= answer %> </strong> is <%= result ? 'Right' : 'Wrong' %>.
+    The answer <strong> <%= answer %> </strong> is <%= result ? 'right' : 'wrong' %>.
 </p>
 
 <p>
     <% if (!result) { %>
-       <a href="/quizzes/<%= quiz.id %>/play?answer=<%= answer %>"> Try it again </a>
+       <a href="/quizzes/<%= quiz.id %>/play?answer=<%= answer %>"><button>Try again</button></a>
     <% } %>
+    <a href="/goback"><button>Go back</button></a>
 </p>
 
-<a href="/goback"><button>Go back</button></a>
+

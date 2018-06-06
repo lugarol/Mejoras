@@ -4,11 +4,10 @@
 
 <form method="get" action="/quizzes/<%= quiz.id %>/check">
 
-
     <div class="quizItem">
 
         <div>
-            <% var attachment = quiz.attachment; %>
+            <% let attachment = quiz.attachment; %>
             <% include ../attachments/_show %>
         </div>
 

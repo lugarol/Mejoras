@@ -1,10 +1,9 @@
-
 <!--
     Add the appropriate star to the quiz given into the parameter.
 
-     Only the star is only shown if there is a user logged in.
-     Depending on the value of the favorite attribute, the star is gray or yellow.
-     An onclick is registered to send AJAX requests and repaint the star if OK.
+    The star is only shown if there is a user logged in.
+    Depending on the value of the favorite attribute, the star is gray or yellow.
+    An onclick is registered to send AJAX requests and repaint the star if OK.
 -->
 
 <% if (session.user) { %>
@@ -15,7 +14,7 @@
 
 <script>
     (function() {
-        var state =  <%= !!quiz.favourite %>;
+        var state = <%= !!quiz.favourite %>;
         var userId = <%= session.user.id %>;
         var quizId = <%= quiz.id %>;
 

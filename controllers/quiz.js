@@ -7,7 +7,7 @@ const attHelper = require("../helpers/attachments");
 
 const paginate = require('../helpers/paginate').paginate;
 
-// Optios for the files uploaded to Cloudinary
+// Options for the files uploaded to Cloudinary
 const cloudinary_upload_options = {
     async: true,
     folder: "/core/quiz2018/attachments",
@@ -455,8 +455,8 @@ exports.play = (req, res, next) => {
     new Promise(function (resolve, reject) {
 
         // Only for logger users:
-        //   if this quiz is one of my fovourites, then I create
-        //   the attribute "favourite = true"
+        //  if this quiz is one of my favorites, then I create
+        //  the attribute "favourite = true"
         if (req.session.user) {
             resolve(
                 req.quiz.getFans({where: {id: req.session.user.id}})
@@ -534,9 +534,12 @@ exports.randomPlay = (req, res, next) => {
         });
     })
     .then(quiz => {
-        console.log(`QUIZ: ${quiz}`);
+        // console.log(`QUIZ: ${quiz}`);
         let score = req.session.resolved.length;
-        res.render('quizzes/random_play', {quiz, score});
+        res.render('quizzes/random_play', {
+            quiz,
+            score
+        });
     });
 };
 
@@ -568,23 +571,4 @@ exports.randomCheck = (req, res, next) => {
         delete req.session.resolved;
         res.render('quizzes/random_result', {result, score, answer});
     }
-};
-
-
-exports.count = (req, res, next) => {
-    Sequelize.Promise.resolve()
-    .then(() => {
-        return models.quiz.count()
-        .then(numQuiz => {
-            res.render('index', {numQuiz});
-        })
-        .catch(error => {
-            req.flash('Unexpected error');
-            next(error);
-        });
-    })
-    .catch(error => {
-        req.flash('Unexpected error');
-        next(error);
-    });
 };

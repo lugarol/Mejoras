@@ -9,6 +9,7 @@ const tipController = require('../controllers/tip');
 const userController = require('../controllers/user');
 const sessionController = require('../controllers/session');
 const favouriteController = require('../controllers/favourite');
+const generalController = require('../controllers/general');
 
 //-----------------------------------------------------------
 
@@ -45,7 +46,7 @@ router.get([
 //-----------------------------------------------------------
 
 /* GET home page. */
-router.get('/', 								quizController.count);
+router.get('/', 								generalController.numQuiz);
 
 // Author page.
 router.get('/author', (req, res, next) => {

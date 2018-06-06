@@ -6,12 +6,15 @@
     Successful answers = <span id="score"><%= score %></span>
 </div>
 
-<p><%=  %></p>
+<% if(quiz.favourite) { %>
+    Hay tema
+<% } else { %>
+    No hay tema
+<% } %>
 
 <form method="get" action="/quizzes/randomcheck/<%= quiz.id %>">
     <p>
         Question: <b><%= quiz.question %></b>
-        <small> (by <%= quiz.author ? quiz.author.username : "Anonymous" %>) </small>
     </p>
 
     <div class="wideRow">
@@ -19,4 +22,3 @@
         <input type="submit" class="itemNarrow" id="send" value="Check">
     </div>
 </form>
-
