@@ -16,7 +16,7 @@
     </div>
 
     <div>
-        <br />
+        <% include ../favourites/_stars.ejs %>
         <br/>
         Question: <b><%= quiz.question %></b> <small>(by <%= quiz.author ? quiz.author.username : "Anonymous" %>)</small>
     </div>
