@@ -518,27 +518,65 @@ exports.randomPlay = (req, res, next) => {
                 res.render('quizzes/random_nomore', {score});
             }
             let aleat = Math.floor(Math.random() * count);
-            
-            return models.quiz.findAll({
+
+            let options = {
                 where: whereOpt,
                 offset: aleat,
-                limit: 1
-            })
+                limit: 1,
+                include: [
+                    {
+                        model: models.tip,
+                        include: [
+                            {
+                                model: models.user,
+                                as: 'author'
+                            }
+                        ]
+                    },
+                    {
+                        model: models.attachment
+                    },
+                    {
+                        model: models.user,
+                        as: 'author'
+                    }
+                ]
+            };
+            // For logged in users: include the favourites of the question by filtering by
+            // the logged in user with an OUTER JOIN.
+            if (req.session.user) {
+                options.include.push({
+                    model: models.user,
+                    as: "fans",
+                    where: {id: req.session.user.id},
+                    required: false  // OUTER JOIN
+                });
+            }
+            return models.quiz.findAll(options)
             .then(quizzes => {
                 return quizzes[0];
             });
         })
         .catch(error => {
-            req.flash('error', `Error deleting the quiz: ${error.message}`);
+            req.flash('error', 'Error');
             next(error);
         });
     })
     .then(quiz => {
-        // console.log(`QUIZ: ${quiz}`);
+        quiz.favourite = false;
+        if (req.session.user) {
+            quiz.getFans({where: {id: req.session.user.id}})
+            .then(fans => {
+                if (fans.length > 0) {
+                    quiz.favourite = true;
+                }
+            });
+        }
         let score = req.session.resolved.length;
         res.render('quizzes/random_play', {
             quiz,
-            score
+            score,
+            cloudinary
         });
     });
 };

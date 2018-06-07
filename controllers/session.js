@@ -188,7 +188,7 @@ exports.create = (req, res, next) => {
 // DELETE /session   --  Close the session
 exports.destroy = (req, res, next) => {
 
+    delete req.session.resolved;
     delete req.session.user;
-
     res.redirect("/session"); // redirect to login gage
 };

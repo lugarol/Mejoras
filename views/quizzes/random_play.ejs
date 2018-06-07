@@ -6,19 +6,38 @@
     Successful answers = <span id="score"><%= score %></span>
 </div>
 
-<% if(quiz.favourite) { %>
-    Hay tema
-<% } else { %>
-    No hay tema
-<% } %>
+<a href="/quizzes/randomplay" class="right"><button>Next</button></a>
+
+<div class="quizItem">
+
+    <div>
+        <% var attachment = quiz.attachment; %>
+        <% include ../attachments/_show %>
+    </div>
+
+    <div>
+        <br />
+        <br/>
+        Question: <b><%= quiz.question %></b> <small>(by <%= quiz.author ? quiz.author.username : "Anonymous" %>)</small>
+    </div>
+
+</div>
 
 <form method="get" action="/quizzes/randomcheck/<%= quiz.id %>">
-    <p>
-        Question: <b><%= quiz.question %></b>
-    </p>
-
     <div class="wideRow">
         <input type="text" class="itemWide" id="answer" name="answer" value="" placeholder="Answer" autocomplete="off"/>
         <input type="submit" class="itemNarrow" id="send" value="Check">
     </div>
 </form>
+
+<% if (quiz.tips[0]) { %>
+    <h3>
+        Tips:
+    </h3>
+
+    <% var tips = quiz.tips; %>
+    <% var quizId = quiz.id; %>
+    <% var quizAuthorId = quiz.authorId; %>
+
+    <% include ../tips/index_randomplay %>
+<% } %>
