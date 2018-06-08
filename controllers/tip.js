@@ -17,7 +17,7 @@ exports.load = (req, res, next, tipId) => {
     .catch(error => next(error));
 };
 
-// MW that allows actions only if the user logged in is admin or is the author of the quiz.
+// MW that allows actions only if the user logged in is admin or is the author of the tip.
 exports.adminOrAuthorRequired = (req, res, next) => {
     
     const isAdmin  = !!req.session.user.isAdmin;
@@ -83,7 +83,7 @@ exports.destroy = (req, res, next) => {
 
     req.tip.destroy()
     .then(() => {
-        req.flash('success', 'tip deleted successfully.');
+        req.flash('success', 'Tip deleted successfully.');
         res.redirect('/quizzes/' + req.params.quizId);
     })
     .catch(error => next(error));
@@ -106,9 +106,10 @@ exports.update = (req, res, next) => {
     tip.text = body.text;
     tip.accepted = false;
     
-    tip.save({fields: ["text"]})
+    tip.save({fields: ["text", "accepted"]})
         .then(tip => {
-            req.flash('success', 'Tip edited successfully.');
+            //req.flash('success', 'Tip edited successfully.');
+            req.flash('success', tip.text);
             res.redirect('/goback');
         })
         .catch(Sequelize.ValidationError, error => {

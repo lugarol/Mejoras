@@ -174,7 +174,7 @@ exports.create = (req, res, next) => {
 
             res.redirect(redir); 
         } else {
-            req.flash('error', 'Authentication has failed. Retry it again.');
+            req.flash('error', 'Authentication has failed. Try again.');
             res.render('session/new', {redir});
         }
     })
