@@ -102,7 +102,7 @@ exports.index = (req, res, next) => {
     if (req.user) {
         countOptions.where.authorId = req.user.id;
 
-        if (req.session.user && req.session.user.id == req.user.id) {
+        if (req.session.user && req.session.user.id === req.user.id) {
             title = "My Questions";
         } else {
             title = "Questions of " + req.user.username;
@@ -176,7 +176,7 @@ exports.index = (req, res, next) => {
                 if (req.session.user) {
                     quizzes.forEach(quiz => {
                         quiz.favourite = quiz.fans.some(fan => {
-                            return fan.id == req.session.user.id;
+                            return fan.id === req.session.user.id;
                         });
                     });
                 }
